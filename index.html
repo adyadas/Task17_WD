@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JavaScript Exception Handling</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f9ff;
+      padding: 30px;
+      line-height: 1.6;
+    }
+
+    h2 {
+      color: #2c3e50;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 5px;
+    }
+
+    .section {
+      background-color: #fff;
+      padding: 15px;
+      margin-bottom: 25px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      border-left: 5px solid #3498db;
+    }
+
+    #output, #errorOutput {
+      padding: 10px;
+      background: #ecf0f1;
+      margin-top: 10px;
+      border-radius: 4px;
+    }
+
+    button {
+      padding: 8px 12px;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 3px;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    pre {
+      background-color: #e8f0f5;
+      padding: 10px;
+      border-radius: 5px;
+      color: #333;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>1. Handle Undeclared Variable Exception</h2>
+  <div class="section">
+    <button onclick="handleUndeclaredVariable()">Try to Print Undeclared Variable</button>
+    <div id="output"></div>
+  </div>
+
+  <h2>2. Throw "Divide by Zero" Error</h2>
+  <div class="section">
+    <button onclick="divideByZero()">Try Division by Zero</button>
+    <div id="errorOutput"></div>
+  </div>
+
+  <h2>3. Throw "Out of Bound Error"</h2>
+  <div class="section">
+    <button onclick="accessOutOfBound()">Try Accessing Out of Bound Index</button>
+  </div>
+
+  <h2>4. Exception Handling Using Finally</h2>
+  <div class="section">
+    <button onclick="exceptionHandlingFinally()">Try Exception Handling with Finally</button>
+  </div>
+
+  <script>
+    // 1. Handle undeclared variable exception
+    function handleUndeclaredVariable() {
+      try {
+        // Trying to print an undeclared variable
+        document.getElementById("output").innerHTML = someVariable;
+      } catch (error) {
+        document.getElementById("output").innerHTML = `Caught Error: ${error.message}`;
+      }
+    }
+
+    // 2. Throw "divide by zero" error using throw statement
+    function divideByZero() {
+      try {
+        let num = 10;
+        let divisor = 0;
+        if (divisor === 0) {
+          throw new Error("Divide by Zero Error");
+        }
+        let result = num / divisor;
+        document.getElementById("errorOutput").innerHTML = `Result: ${result}`;
+      } catch (error) {
+        document.getElementById("errorOutput").innerHTML = `Caught Error: ${error.message}`;
+      }
+    }
+
+    // 3. Throw "out of bound" error when accessing an array index that is not present
+    function accessOutOfBound() {
+      try {
+        let array = [1, 2, 3];
+        let index = 5; // Accessing an index out of bounds
+        if (index >= array.length || index < 0) {
+          throw new Error("Out of Bound Error");
+        }
+        document.getElementById("errorOutput").innerHTML = `Array element: ${array[index]}`;
+      } catch (error) {
+        document.getElementById("errorOutput").innerHTML = `Caught Error: ${error.message}`;
+      }
+    }
+
+    // 4. Exception handling using finally
+    function exceptionHandlingFinally() {
+      try {
+        let result = riskyFunction();
+        document.getElementById("errorOutput").innerHTML = `Function Result: ${result}`;
+      } catch (error) {
+        document.getElementById("errorOutput").innerHTML = `Caught Error: ${error.message}`;
+      } finally {
+        document.getElementById("errorOutput").innerHTML += "<br>Finally block executed!";
+      }
+    }
+
+    function riskyFunction() {
+      throw new Error("An error occurred in riskyFunction");
+    }
+  </script>
+
+</body>
+</html>
